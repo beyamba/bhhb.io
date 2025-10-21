@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        #loginForm, #studentForm {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #35424a;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #35424a;
+            color: white;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ST ANNET SEED SCHOOL BUWUNGA</h1>
+        <p>Motto: Education is the Key</p>
+    </header>
+    <div class="container">
+        <div id="loginForm">
+            <h2>Login</h2>
+            <input type="email" id="email" placeholder="Email (must contain @stud)" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <p class="error" id="loginError"></p>
+            <p><a href="#">Forgot Password?</a></p>
+        </div>
+        <div id="dashboard" style="display:none;">
+            <h2>Dashboard</h2>
+            <div id="studentForm">
+                <h3>Add Student</h3>
+                <input type="text" id="studentName" placeholder="Student Name" required>
+                <input type="number" id="emisNumber" placeholder="EMIS Number" required>
+                <input type="number" id="age" placeholder="Age" required>
+                <input type="text" id="class" placeholder="Class" required>
+                <table>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                    </tr>
+                    <tr>
+                        <td>ICT</td>
+                        <td><input type="number" class="marks" data-subject="ICT"></td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td><input type="number" class="marks" data-subject="English"></td>
+                    </tr>
+                    <tr>
+                        <td>Biology</td>
+                        <td><input type="number" class="marks" data-subject="Biology"></td>
+                    </tr>
+                    <tr>
+                        <td>Chemistry</td>
+                        <td><input type="number" class="marks" data-subject="Chemistry"></td>
+                    </tr>
+                    <tr>
+                        <td>Math</td>
+                        <td><input type="number" class="marks" data-subject="Math"></td>
+                    </tr>
+                    <tr>
+                        <td>Geography</td>
+                        <td><input type="number" class="marks" data-subject="Geography"></td>
+                    </tr>
+                    <tr>
+                        <td>CRE</td>
+                        <td><input type="number" class="marks" data-subject="CRE"></td>
+                    </tr>
+                </table>
+                <button onclick="saveStudent()">Save Student</button>
+                <button onclick="addAnotherStudent()">Add Another Student</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@stud[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailPattern.test(email) && password) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                document.getElementById('loginError').innerText = 'Invalid email or password.';
+            }
+        }
+
+        function saveStudent() {
+            const name = document.getElementById('studentName').value;
+            const emis = document.getElementById('emisNumber').value;
+            const age = document.getElementById('age').value;
+            const className = document.getElementById('class').value;
+            const marks = Array.from(document.querySelectorAll('.marks')).map(input => input.value);
+            console.log({ name, emis, age, className, marks });
+            alert('Student saved successfully!');
+        }
+
+        function addAnotherStudent() {
+            document.getElementById('studentName').value = '';
+            document.getElementById('emisNumber').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('class').value = '';
+            document.querySelectorAll('.marks').forEach(input => input.value = '');
+        }
+    </script>
+</body>
+</html>
